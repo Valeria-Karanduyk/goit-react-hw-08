@@ -1,0 +1,29 @@
+.box {
+    display: flex;
+    justify-content: space-between;
+
+    & span {
+        font-weight: bold;
+    }
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 10px auto;
+}
+
+.error {
+    border: 1px solid #bf4040;
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+    font-size: larger;
+    color: #bf4040;
+
+    & p {
+        font-size: x-large;
+        margin-bottom: 5px;
+    }
+}

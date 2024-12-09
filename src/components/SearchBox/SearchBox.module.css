@@ -1,0 +1,28 @@
+.box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0;
+    border-radius: 10px;
+}
+
+.input {
+    box-sizing: border-box;
+    width: 100%;
+    outline: transparent;
+    font-size: 14px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px 1px #ffffff;
+    border-radius: 5px;
+    padding: 8px;
+    border: none;
+    transition: outline 0.3s ease-in-out;
+
+    &:hover {
+        outline: 1px solid gray;
+    }
+
+    &:focus-within {
+        outline: 1px solid #3350e9;
+    }
+}
