@@ -13,6 +13,5 @@ const FilterSlice = createSlice;
   },
 });
 
-export const { changeFilter } = slice.actions;
-export const FilterReducer = FilterSlice.reducer;
+export const { changeFilter } = FilterSlice.actions;
 export default FilterSlice.reducer;

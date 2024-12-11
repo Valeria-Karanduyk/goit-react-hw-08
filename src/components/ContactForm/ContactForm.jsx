@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addContact } from "../../redux/contactsOps";
+import { addContact } from "../../redux/contacts/operations.js";
 import { selectContacts } from "../../redux/contactsSlice";
 import { ErrorMessage, Form, Field, Formik } from "formik";
 import * as Yup from "yup";
