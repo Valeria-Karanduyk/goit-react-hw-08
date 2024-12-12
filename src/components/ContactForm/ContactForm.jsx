@@ -1,10 +1,10 @@
-import { Field, Form, Formik } from "formik";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addContacts } from "../../redux/contacts/operations";
+import { selectContacts } from "../../redux/contacts/selectors";
+import { ErrorMessage, Form, Field, Formik } from "formik";
 import * as Yup from "yup";
 import { MdPersonAddAlt1 } from "react-icons/md";
-import { addContacts } from "../../redux/contacts/operations";
-import { useDispatch } from "react-redux";
-import toast from "react-hot-toast";
-import { Box, Button, TextField } from "@mui/material";
 import s from "./ContactForm.module.css";
 
 const FeedbackSchema = Yup.object().shape({
@@ -18,75 +18,52 @@ const FeedbackSchema = Yup.object().shape({
     .required("Required"),
 });
 
-const emptyValues = {
-  name: "",
-  number: "",
-};
-
-const style = {
-  boxSizing: "border-box",
-  bgcolor: "background.paper",
-  borderRadius: "5px",
-  boxShadow: 24,
-  p: 4,
-};
-
 const ContactForm = () => {
+  const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
 
-  const handleSubmit = (values, actions) => {
-    toast.promise(dispatch(addContacts(values)).unwrap(), {
-      loading: "Create contact",
-      success: <b>{values.name} Was successfully created!</b>,
-      error: <b>Error creating contact!</b>,
-    });
-    actions.resetForm();
+  const handleSubmit = (values, { resetForm }) => {
+    const { name, number } = values;
+
+    if (contacts.some((contact) => contact.name === name)) {
+      alert(`${name} is already in contacts.`);
+      return;
+    }
+
+    dispatch(addContacts({ id: Date.now(), name, number }));
+    resetForm();
   };
 
   return (
     <Formik
-      initialValues={emptyValues}
-      onSubmit={handleSubmit}
+      initialValues={{ name: "", number: "" }}
       validationSchema={FeedbackSchema}
+      onSubmit={handleSubmit}
     >
-      {({ errors, touched }) => (
-        <Box sx={style}>
-          <h2 className={s.title}>Add new contact:</h2>
-          <Form className={s.form}>
-            <Field name="name">
-              {({ field }) => (
-                <TextField
-                  sx={{ width: "100%" }}
-                  {...field}
-                  label="Username"
-                  variant="outlined"
-                  error={Boolean(touched.name && errors.name)}
-                  helperText={touched.name && errors.name ? errors.name : " "}
-                />
-              )}
-            </Field>
-            <Field name="number">
-              {({ field }) => (
-                <TextField
-                  sx={{ width: "100%" }}
-                  {...field}
-                  label="Phone number"
-                  variant="outlined"
-                  error={Boolean(touched.number && errors.number)}
-                  helperText={
-                    touched.number && errors.number ? errors.number : " "
-                  }
-                />
-              )}
-            </Field>
-
-            <Button type="submit" variant="contained">
-              <MdPersonAddAlt1 />
-              &nbsp;Add contact
-            </Button>
-          </Form>
-        </Box>
-      )}
+      <Form className={s.form}>
+        <div className={s.inputBox}>
+          <Field
+            className={s.input}
+            type="text"
+            name="name"
+            placeholder="Name"
+          />
+          <ErrorMessage name="name" component="span" className={s.error} />
+        </div>
+        <div className={s.inputBox}>
+          <Field
+            className={s.input}
+            type="tel"
+            name="number"
+            placeholder="Number"
+          />
+          <ErrorMessage name="number" component="span" className={s.error} />
+        </div>
+        <button className={s.btn} type="submit">
+          <MdPersonAddAlt1 />
+          Add Contact
+        </button>
+      </Form>
     </Formik>
   );
 };
