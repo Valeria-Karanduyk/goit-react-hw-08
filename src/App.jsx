@@ -1,21 +1,22 @@
 import { useEffect, lazy, Suspense } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import { Layout } from "./components/Layout";
-import { PrivateRoute } from "./components/PrivateRoute";
-import { RestrictedRoute } from "./components/RestrictedRoute";
+import { Layout } from "./components/Layout/Layout";
+import Loader from "./components/Loader/Loader";
+import PrivateRoute from "./components/PrivateRoute";
+import RestrictedRoute from "./components/RestrictedRoute";
 import { refreshUser } from "./redux/auth/operations";
-import { selectIsRefreshing } from "./redux/auth/selectors";
+import { useAuth } from "./useAuth";
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const RegisterPage = lazy(() => import("./pages/RegisterPage/RegisterPage"));
-const LoginPage = lazy(() => import("./pages/LoginPage/LoginPage"));
+const LoginPage = lazy(() => import("./pages/RegisterPage/RegisterPage"));
 const ContactPage = lazy(() => import("./pages/ContactPage/ContactPage"));
 const ErrorPage = lazy(() => import("./pages/ErrorPage/ErrorPage"));
 
-const App = () => {
+export const App = () => {
   const dispatch = useDispatch();
-  const isRefreshing = useSelector(selectIsRefreshing);
+  const { isRefreshing } = useAuth();
 
   useEffect(() => {
     dispatch(refreshUser());
@@ -29,22 +30,16 @@ const App = () => {
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route
-            path="contacts"
-            element={
-              <PrivateRoute redirectTo="/login" component={<ContactsPage />} />
-            }
-          />
-          <Route
-            path="register"
+            path="/register"
             element={
               <RestrictedRoute
-                redirectTo="/contacts"
+                redirectTo="/login"
                 component={<RegisterPage />}
               />
             }
           />
           <Route
-            path="login"
+            path="/login"
             element={
               <RestrictedRoute
                 redirectTo="/contacts"
@@ -52,11 +47,15 @@ const App = () => {
               />
             }
           />
-          <Route path="*" element={<ErrorPage />} />
+          <Route
+            path="/contacts"
+            element={
+              <PrivateRoute redirectTo="/login" component={<ContactPage />} />
+            }
+          />
         </Route>
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </Suspense>
   );
 };
-
-export default App;

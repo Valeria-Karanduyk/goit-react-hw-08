@@ -14,15 +14,7 @@ const LoginForm = () => {
         email: form.elements.email.value,
         password: form.elements.password.value,
       })
-    )
-      .unwrap()
-      .then(() => {
-        console.log("login success");
-      })
-      .catch(() => {
-        console.log("login error");
-      });
-
+    );
     form.reset();
   };
 
@@ -30,11 +22,27 @@ const LoginForm = () => {
     <form className={s.form} onSubmit={handleSubmit} autoComplete="off">
       <label className={s.label}>
         Email
-        <input type="email" name="email" />
+        <input
+          className={s.input}
+          type="email"
+          name="email"
+          placeholder="Enter your email address"
+          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+          title="Please enter a valid email address"
+          required
+        />
       </label>
       <label className={s.label}>
         Password
-        <input type="password" name="password" />
+        <input
+          className={s.input}
+          type="password"
+          name="password"
+          placeholder="Enter your password"
+          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+          title="The password must contain only letters (both upper and lower case), numbers and other symbols"
+          required
+        />
       </label>
       <button className={s.btn} type="submit">
         Log In

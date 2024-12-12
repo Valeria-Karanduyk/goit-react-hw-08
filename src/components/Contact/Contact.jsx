@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { setDeleteData } from "../../redux/contacts/slice";
+import { deleteContact } from "../../redux/contacts/slice";
 import s from "./Contact.module.css";
 import { FaTrashAlt } from "react-icons/fa";
 import { MdPhone } from "react-icons/md";
@@ -9,7 +9,7 @@ const Contact = ({ contact }) => {
   const dispatch = useDispatch();
 
   const handleDelete = (id) => {
-    dispatch(setDeleteData(id));
+    dispatch(deleteContact(id));
   };
 
   return (

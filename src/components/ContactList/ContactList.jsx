@@ -1,42 +1,71 @@
-import { useSelector } from "react-redux";
-import s from "./ContactList.module.css";
-import Contact from "../Contact/Contact";
-import {
-  selectError,
-  selectTotalContacts,
-  selectFilteredContacts,
-} from "../../redux/contacts/selectors";
-import { selectNameFilter } from "../../redux/filters/selectors";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addContacts } from "../../redux/contacts/operations";
+import { selectContacts } from "../../redux/contacts/slice";
+import { ErrorMessage, Form, Field, Formik } from "formik";
+import * as Yup from "yup";
+import { MdPersonAddAlt1 } from "react-icons/md";
+import s from "./ContactForm.module.css";
 
-const ContactList = () => {
-  const filter = useSelector(selectNameFilter);
-  const totalContacts = useSelector(selectTotalContacts);
-  const filteredContacts = useSelector(selectFilteredContacts);
-  const error = useSelector(selectError);
-  return !error ? (
-    <>
-      <div className={s.box}>
-        <p className={s.total}>
-          Total contacts: <span>{totalContacts}</span>
-        </p>
-        {filter && (
-          <p className={s.found}>
-            Found: <span>{filteredContacts.length}</span>
-          </p>
-        )}
-      </div>
-      <ul className={s.list}>
-        {filteredContacts.map((contact) => (
-          <Contact key={contact.id} contact={contact} />
-        ))}
-      </ul>
-    </>
-  ) : (
-    <div className={s.error}>
-      <p>Failed to fetch</p>
-      {error}!
-    </div>
+const FeedbackSchema = Yup.object().shape({
+  name: Yup.string()
+    .min(3, "Too Short!")
+    .max(50, "Too Long!")
+    .required("Required"),
+  number: Yup.string()
+    .min(3, "Too Short!")
+    .max(50, "Too Long")
+    .required("Required"),
+});
+
+const ContactForm = () => {
+  const contacts = useSelector(selectContacts);
+  const dispatch = useDispatch();
+
+  const handleSubmit = (values, { resetForm }) => {
+    const { name, number } = values;
+
+    if (contacts.some((contact) => contact.name === name)) {
+      alert(`${name} is already in contacts.`);
+      return;
+    }
+
+    dispatch(addContacts({ id: Date.now(), name, number }));
+    resetForm();
+  };
+
+  return (
+    <Formik
+      initialValues={{ name: "", number: "" }}
+      validationSchema={FeedbackSchema}
+      onSubmit={handleSubmit}
+    >
+      <Form className={s.form}>
+        <div className={s.inputBox}>
+          <Field
+            className={s.input}
+            type="text"
+            name="name"
+            placeholder="Name"
+          />
+          <ErrorMessage name="name" component="span" className={s.error} />
+        </div>
+        <div className={s.inputBox}>
+          <Field
+            className={s.input}
+            type="tel"
+            name="number"
+            placeholder="Number"
+          />
+          <ErrorMessage name="number" component="span" className={s.error} />
+        </div>
+        <button className={s.btn} type="submit">
+          <MdPersonAddAlt1 />
+          Add Contact
+        </button>
+      </Form>
+    </Formik>
   );
 };
 
-export default ContactList;
+export default ContactForm;

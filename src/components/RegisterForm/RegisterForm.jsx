@@ -24,15 +24,30 @@ const RegisterForm = () => {
     <form className={s.form} onSubmit={handleSubmit} autoComplete="off">
       <label className={s.label}>
         Username
-        <input type="text" name="name" />
+        <input
+          className={s.input}
+          type="text"
+          name="name"
+          placeholder="Enter a name"
+        />
       </label>
       <label className={s.label}>
         Email
-        <input type="email" name="email" />
+        <input
+          className={s.input}
+          type="email"
+          name="email"
+          placeholder="Enter your email address"
+        />
       </label>
       <label className={s.label}>
         Password
-        <input type="password" name="password" />
+        <input
+          className={s.input}
+          type="password"
+          name="password"
+          placeholder="Enter your password"
+        />
       </label>
       <button className={s.btn} type="submit">
         Register
