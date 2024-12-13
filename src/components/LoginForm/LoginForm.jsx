@@ -27,9 +27,6 @@ const LoginForm = () => {
           type="email"
           name="email"
           placeholder="Enter your email address"
-          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-          title="Please enter a valid email address"
-          required
         />
       </label>
       <label className={s.label}>
@@ -39,9 +36,6 @@ const LoginForm = () => {
           type="password"
           name="password"
           placeholder="Enter your password"
-          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-          title="The password must contain only letters (both upper and lower case), numbers and other symbols"
-          required
         />
       </label>
       <button className={s.btn} type="submit">
