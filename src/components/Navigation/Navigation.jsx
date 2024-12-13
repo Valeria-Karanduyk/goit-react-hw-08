@@ -7,13 +7,15 @@ const Navigation = () => {
 
   return (
     <nav>
-      {/* <img
-        className={s.img}
-        src="../../../public/phonebook.png"
-        alt="phonebook"
-        width="35px"
-        height="35px"
-      /> */}
+      {/* <div className={s.box}>
+        <img
+          className={s.img}
+          src="../../../public/phonebook.png"
+          alt="phonebook"
+          width="40px"
+          height="40px"
+        />
+      </div> */}
       <NavLink className={s.link} to="/">
         Home
       </NavLink>

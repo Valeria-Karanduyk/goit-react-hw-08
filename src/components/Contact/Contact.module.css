@@ -5,6 +5,7 @@
     padding: 20px 0;
     background-color: #ffffff;
     padding: 10px;
+    margin-right: 10px;
     border-radius: 10px;
     box-shadow: 0 0 10px 1px black;
 
@@ -26,7 +27,7 @@
 
 .icon {
     fill: #000000;
-    margin-right: 5px;
+    margin-right: 10px;
 }
 
 .btn {
