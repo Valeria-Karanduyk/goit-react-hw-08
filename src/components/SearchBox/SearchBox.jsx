@@ -15,7 +15,7 @@ const SearchBox = () => {
         type="text"
         value={filter}
         onChange={(e) => dispatch(changeFilter(e.target.value))}
-        placeholder="Search contacts"
+        placeholder="Find contacts by name or number"
       />
     </div>
   );

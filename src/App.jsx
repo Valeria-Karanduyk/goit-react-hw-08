@@ -10,7 +10,7 @@ import { useAuth } from "./useAuth";
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const RegisterPage = lazy(() => import("./pages/RegisterPage/RegisterPage"));
-const LoginPage = lazy(() => import("./pages/RegisterPage/RegisterPage"));
+const LoginPage = lazy(() => import("./pages/LoginPage/LoginPage"));
 const ContactPage = lazy(() => import("./pages/ContactPage/ContactPage"));
 const ErrorPage = lazy(() => import("./pages/ErrorPage/ErrorPage"));
 

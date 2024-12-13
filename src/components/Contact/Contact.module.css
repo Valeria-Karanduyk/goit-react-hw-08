@@ -6,7 +6,7 @@
     background-color: #ffffff;
     padding: 10px;
     border-radius: 10px;
-    box-shadow: 0 0 10px 1px #ffffff;
+    box-shadow: 0 0 10px 1px black;
 
     & .box {
         display: flex;

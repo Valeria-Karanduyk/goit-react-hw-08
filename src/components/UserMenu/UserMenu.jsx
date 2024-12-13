@@ -10,7 +10,9 @@ const UserMenu = () => {
 
   return (
     <div className={s.box}>
-      <p className={s.description}>Welcome to Phonebook {user.name} </p>{" "}
+      <p className={s.description}>
+        Welcome <span>{user.name}</span>{" "}
+      </p>{" "}
       <button
         className={s.btn}
         type="button"

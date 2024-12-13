@@ -15,7 +15,6 @@
     box-shadow: 0 0 10px 1px #ffffff;
     border-radius: 5px;
     padding: 8px;
-    border: none;
     transition: outline 0.3s ease-in-out;
 
     &:hover {

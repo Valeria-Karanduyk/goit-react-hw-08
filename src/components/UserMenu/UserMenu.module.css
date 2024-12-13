@@ -1,0 +1,32 @@
+.box{
+    display: flex;
+        align-items: center;
+        gap: 12px;
+}
+
+.description{
+        color: black;
+        font-size: 20px;
+
+        & span {
+                font-weight: bold;
+            }
+}
+
+.btn{
+    padding: 4px 6px;
+        font: inherit;
+        cursor: pointer;
+        border-radius: 4px 8px;
+        border: 1px solid #3350e9;
+        color: #3350e9;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 10px 10px;
+    
+        &:hover {
+            background-color: #b9bcd3;
+        }
+}
