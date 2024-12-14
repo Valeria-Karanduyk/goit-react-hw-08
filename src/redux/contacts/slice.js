@@ -5,6 +5,7 @@ import {
   addContacts,
   deleteContacts,
 } from "../contacts/operations";
+import { logOut } from "../auth/operations";
 
 const getActions = (type) =>
   isAnyOf(fetchContacts[type], addContacts[type], deleteContacts[type]);
@@ -27,6 +28,7 @@ const contactsSlice = createSlice({
         );
         state.items.splice(index, 1);
       })
+      .addCase(logOut.fulfilled, () => initialState)
       .addMatcher(getActions("pending"), (state) => {
         state.isLoading = true;
       })
