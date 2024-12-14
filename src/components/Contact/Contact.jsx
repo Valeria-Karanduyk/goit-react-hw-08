@@ -4,6 +4,7 @@ import s from "./Contact.module.css";
 import { FaTrashAlt } from "react-icons/fa";
 import { MdPhone } from "react-icons/md";
 import { BsPersonFill } from "react-icons/bs";
+import { deleteToast } from "../Toasts/Toasts";
 
 const Contact = ({ contact }) => {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ const Contact = ({ contact }) => {
         className={s.btn}
         onClick={() => {
           dispatch(deleteContacts(id));
+          deleteToast(`${name} tel:${number} is deleted!`);
         }}
       >
         <FaTrashAlt />

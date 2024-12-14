@@ -7,6 +7,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import RestrictedRoute from "./components/RestrictedRoute";
 import { refreshUser } from "./redux/auth/operations";
 import { useAuth } from "./useAuth";
+import { Toaster } from "react-hot-toast";
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const RegisterPage = lazy(() => import("./pages/RegisterPage/RegisterPage"));
@@ -56,6 +57,7 @@ export const App = () => {
         </Route>
         <Route path="*" element={<ErrorPage />} />
       </Routes>
+      <Toaster />
     </Suspense>
   );
 };

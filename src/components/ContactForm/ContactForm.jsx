@@ -6,6 +6,7 @@ import { ErrorMessage, Form, Field, Formik } from "formik";
 import * as Yup from "yup";
 import { MdPersonAddAlt1 } from "react-icons/md";
 import s from "./ContactForm.module.css";
+import { infoToast } from "../Toasts/Toasts";
 
 const FeedbackSchema = Yup.object().shape({
   name: Yup.string()
@@ -25,12 +26,17 @@ const ContactForm = () => {
   const handleSubmit = (values, { resetForm }) => {
     const { name, number } = values;
 
-    if (contacts.some((contact) => contact.name === name)) {
-      alert(`${name} is already in contacts.`);
+    if (
+      contacts.some(
+        (contact) => contact.name === name || contact.number === number
+      )
+    ) {
+      infoToast(`${name} or ${number} is already in contacts.`);
       return;
     }
 
     dispatch(addContacts({ id: Date.now(), name, number }));
+    infoToast(`${name} was successfully added to your contacts!`);
     resetForm();
   };
 
